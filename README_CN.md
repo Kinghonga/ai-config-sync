@@ -49,7 +49,7 @@ ai-sync list
 
 ```bash
 ai-sync export                                  # 全部配置
-ai-sync export --include opencode:deepseek      # 单个供应商
+ai-sync export --include opencode:sense-nova      # 单个供应商
 ai-sync export --no-credentials                 # 不含 API Key
 ```
 
@@ -57,7 +57,7 @@ ai-sync export --no-credentials                 # 不含 API Key
 
 ```bash
 ai-sync diff                                    # 与 ai-sync.json 对比
-ai-sync diff --include opencode:deepseek        # 只看某个供应商
+ai-sync diff --include opencode:sense-nova        # 只看某个供应商
 ```
 
 逐个供应商/模型/凭据显示：仅本地有、仅包里有、已同步、还是有差异。绝不写入文件，绝不打印密钥。

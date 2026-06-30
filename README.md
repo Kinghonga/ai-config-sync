@@ -49,7 +49,7 @@ Lists OpenCode and Claude Code providers and models found on this machine.
 
 ```bash
 python3 ai-sync.py export                                  # all configs
-python3 ai-sync.py export --include opencode:deepseek      # one provider
+python3 ai-sync.py export --include opencode:sense-nova      # one provider
 python3 ai-sync.py export --no-credentials                 # skip API keys
 ```
 
@@ -57,7 +57,7 @@ python3 ai-sync.py export --no-credentials                 # skip API keys
 
 ```bash
 python3 ai-sync.py diff                                    # compare against ai-sync.json
-python3 ai-sync.py diff --include opencode:deepseek        # one provider only
+python3 ai-sync.py diff --include opencode:sense-nova        # one provider only
 ```
 
 Shows, for each provider/model/credential, whether it is only-on-current, only-in-package, in-sync, or differs. Never writes files, never prints secret values.
