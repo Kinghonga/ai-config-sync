@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 """ai-sync — AI model config migrator. Single-file, zero external dependencies.
 
-Note: This standalone is a zero-dependency fallback that may lag the pip version. For `diff` and `--update` commands, install via `pip install ai-config-sync`.
+Standalone script for locked-down machines where pip install isn't available.
+Supports: list / export / import / --force / --dry-run / --yes.
+For `diff` and `import --update` (field-level merge), install the pip version:
+    pip install git+https://github.com/Kinghonga/ai-config-sync.git
+
+Note: packages use xor-hmac-sha256 here vs AES-256-GCM in the pip version.
+They cannot decrypt each other's packages.
 
 Usage:
     ai-sync export                                      # export all to ai-sync.json
@@ -33,7 +39,7 @@ from pathlib import Path
 from typing import Any
 
 # ── Constants ────────────────────────────────────────────────────────────────
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 DEFAULT_PACKAGE_FILE = "ai-sync.json"
 
 # Standalone crypto (stdlib only — less throughput than AES-GCM, identical

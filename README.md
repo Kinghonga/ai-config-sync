@@ -6,6 +6,8 @@
 
 # ai-config-sync
 
+![tests](https://github.com/Kinghonga/ai-config-sync/actions/workflows/test.yml/badge.svg)
+
 > One command to export, one command to import. AI model configs, migrated across machines.
 
 OpenCode and Claude Code model provider configs, API keys encrypted, transferred between machines. Pure local, no servers.
@@ -30,14 +32,28 @@ ai-sync import      # apply with confirmation
 
 Requires Python 3.10+.
 
-### Zero-dependency fallback (lags behind pip version)
+### Standalone script (zero dependencies)
 
 ```bash
 curl -O https://raw.githubusercontent.com/Kinghonga/ai-config-sync/main/ai-sync.py
 python3 ai-sync.py export
 ```
 
-The single-file script lacks the latest `diff` and `--update` commands. For full features, use the pip install above.
+No Python packages required — runs on stdlib alone. Designed for locked-down machines where `pip install` isn't an option.
+
+| Command / Option | pip version | Standalone script |
+|------------------|:-----------:|:-----------------:|
+| `list` | ✅ | ✅ |
+| `export` | ✅ | ✅ |
+| `import` | ✅ | ✅ |
+| `import --force` | ✅ | ✅ |
+| `import --dry-run` | ✅ | ✅ |
+| `import --yes` | ✅ | ✅ |
+| `diff` | ✅ | — |
+| `import --update` | ✅ | — |
+| Encryption | AES-256-GCM | xor-hmac-sha256 |
+
+Packages exported by one version **cannot** be decrypted by the other (different cipher). Use the same installation path on both machines.
 
 ## Commands
 
@@ -152,6 +168,8 @@ MIT
 
 # ai-config-sync
 
+![tests](https://github.com/Kinghonga/ai-config-sync/actions/workflows/test.yml/badge.svg)
+
 > 一句导出，一句导入。AI 模型配置，跨机器迁移。
 
 OpenCode 和 Claude Code 的模型供应商配置、API Key 加密后在不同机器间传输。纯本地运行，不依赖服务器。
@@ -176,14 +194,28 @@ ai-sync import      # 确认后应用
 
 需要 Python 3.10+。
 
-### 零依赖备用脚本（功能滞后于 pip 版本）
+### 单文件脚本（零依赖）
 
 ```bash
 curl -O https://raw.githubusercontent.com/Kinghonga/ai-config-sync/main/ai-sync.py
 python3 ai-sync.py export
 ```
 
-单文件脚本缺少最新的 `diff` 和 `--update` 命令。如需完整功能，请用上面的 pip 安装。
+无需安装任何 Python 包，仅依赖标准库。适用于无法 `pip install` 的受限环境。
+
+| 命令 / 选项 | pip 版本 | 单文件脚本 |
+|------------|:--------:|:---------:|
+| `list` | ✅ | ✅ |
+| `export` | ✅ | ✅ |
+| `import` | ✅ | ✅ |
+| `import --force` | ✅ | ✅ |
+| `import --dry-run` | ✅ | ✅ |
+| `import --yes` | ✅ | ✅ |
+| `diff` | ✅ | — |
+| `import --update` | ✅ | — |
+| 加密算法 | AES-256-GCM | xor-hmac-sha256 |
+
+两个版本导出的包**无法**互相解密（加密算法不同）。请在两台机器上使用相同的安装方式。
 
 ## 命令
 
