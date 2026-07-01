@@ -250,8 +250,15 @@ def _print_change_summary(report, input_path: str | Path) -> None:
 
 
 def _package_has_encrypted_credentials(path: str | Path) -> bool:
-    with Path(path).open("r", encoding="utf-8") as fh:
-        data = json.load(fh)
+    try:
+        with Path(path).open("r", encoding="utf-8") as fh:
+            data = json.load(fh)
+    except FileNotFoundError as exc:
+        raise ValueError(f"package file not found: {path}") from exc
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"invalid package JSON: {path}") from exc
+    if not isinstance(data, dict):
+        raise ValueError(f"package JSON root must be an object: {path}")
     return data.get("encrypted_credentials") is not None
 
 

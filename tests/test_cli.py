@@ -45,3 +45,20 @@ def test_cli_list_and_export_no_credentials(tmp_path, capsys):
     assert main(["export", "--home", str(tmp_path), "--output", str(output), "--no-credentials"]) == 0
     assert output.exists()
     assert "SECRET" not in output.read_text()
+
+
+def test_cli_diff_missing_package_reports_friendly_error(tmp_path, capsys):
+    missing = tmp_path / "missing.json"
+    assert main(["diff", str(missing), "--home", str(tmp_path)]) == 2
+    err = capsys.readouterr().err
+    assert "package file not found" in err
+    assert str(missing) in err
+
+
+def test_cli_import_invalid_package_json_reports_friendly_error(tmp_path, capsys):
+    package = tmp_path / "bad.json"
+    package.write_text("not json", encoding="utf-8")
+    assert main(["import", "--input", str(package), "--home", str(tmp_path), "--yes"]) == 2
+    err = capsys.readouterr().err
+    assert "invalid package JSON" in err
+    assert str(package) in err
